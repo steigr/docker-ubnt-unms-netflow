@@ -1,0 +1,16 @@
+diff -Naur a/lib/netflow/v9/parser.js b/lib/netflow/v9/parser.js
+--- a/lib/netflow/v9/parser.js  2018-10-26 13:57:33.000000000 +0200
++++ b/lib/netflow/v9/parser.js  2018-11-08 18:59:13.000000000 +0100
+@@ -41,12 +41,8 @@
+       const flowSet = packet.slice(length - 4);
+       if (flowSetId === 0) {
+         templates.push(...Parser.parseTemplates(flowSet, knownTemplates));
+-      } else if (flowSetId === 1) {
+-        // options templates are ignored
+-        packet.skipPadding();
+       } else if (flowSetId >= 256) {
+         data.push(...Parser.parseData(flowSet, knownTemplates[flowSetId]));
+-        packet.skipPadding();
+       }
+     }
+     return { data, templates };
